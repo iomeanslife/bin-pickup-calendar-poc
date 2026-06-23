@@ -1,0 +1,40 @@
+@using Ical.Net.CalendarComponents;
+@{
+    ViewData["Title"] = "Bin Calendar";  
+}
+<h1>@ViewData["Title"]</h1>
+
+@if (Model.AllUpcomingDates != null)
+{
+    <h2>Today is @Model.Today.Date.ToString("dd.MM.yy")</h2>
+    <p>Pickup tomorrow morning are for the following bins:</p>
+    <div>
+    @foreach (String item in Model.TomorrowBins)
+    {
+        <ul>
+        <li>
+            <svg width="70" height="70">
+                <rect x="5" y="5" width="40" height="40" style="
+                width: 41px;
+                height: 41px;
+                fill: @item;
+                stroke-width: 3px; 
+                stroke: @item;)"/>
+            </svg>
+        </li>
+        </ul>
+    }
+    </div>
+
+    <p>Pickup for the next 30 days:</p>
+    <div>
+    @foreach (CalendarEvent item in Model.AllUpcomingDates)
+    {
+        <ul>
+        <li>
+            @item.DtStart?.ToString() - @item.Summary
+        </li>
+        </ul>
+    }
+    </div>
+}
